@@ -28,4 +28,4 @@ const Showdetail = ({item}: any) => {
   );
 };
 
-export default Showdetail;
+export default React.memo(Showdetail);

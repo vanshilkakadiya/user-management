@@ -5,13 +5,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import React, {useState} from 'react';
-import {validateEmail} from '../../../assets/helper/helper';
+import React from 'react';
 import {strings} from '../../../assets/constant/strings';
 import Textinput from '../../component/Textinput';
 import {imagePath} from '../../../assets/icon/imagePath';
 import useAuth from './useAuth';
 import styles from './AuthStyles';
+import {isIos} from '../../../assets/helper/helper';
 
 const Auth = () => {
   const {
@@ -21,40 +21,35 @@ const Auth = () => {
     signInWithEmail,
     emailChangeValue,
     passwordChangeValue,
+    signIn,
+    firstName,
+    lastName,
+    confirmPassword,
+    mobileNumber,
+    isValideEmail,
+    emailChangeText,
+    signUpTopac,
+    signInTopac,
+    setFirstNameValue,
+    setLastNameValue,
+    setConfirmPasswordValue,
+    setMobileNumberValue,
   } = useAuth();
-
-  const [signIn, setSignIn] = useState(true);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [isValideEmail, setIsValideEmail] = useState(false);
-
-  const emailChangeText = (value: string) => {
-    emailChangeValue(value), setIsValideEmail(validateEmail(value));
-  };
-
-  const signUpTopac = () => {
-    setSignIn(false),
-      emailChangeValue(''),
-      passwordChangeValue(''),
-      setIsValideEmail(false);
-  };
-
-  const signInTopac = () => {
-    setSignIn(true), emailChangeValue(''), passwordChangeValue('');
-  };
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <KeyboardAvoidingView behavior={strings.padding as "padding"} style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={
+          isIos ? (strings.padding as 'padding') : (strings.height as 'height')
+        }
+        style={styles.container}>
         {signIn ? (
           <Text style={styles.signTxt}>{strings.signIn}</Text>
         ) : (
           <Text style={styles.signTxt}>{strings.signUp}</Text>
         )}
         {signIn ? (
-          <View>
+          <>
             <Textinput
               value={email}
               iconPath={imagePath.email}
@@ -73,20 +68,20 @@ const Auth = () => {
                 <Text style={styles.regestrationTxt}>{strings.signUp}</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </>
         ) : (
-          <View>
+          <>
             <Textinput
               value={firstName}
               iconPath={imagePath.user}
               placeHolder={strings.firstName}
-              onChangeTexts={(value: string) => setFirstName(value)}
+              onChangeTexts={(value: string) => setFirstNameValue(value)}
             />
             <Textinput
               value={lastName}
               iconPath={imagePath.user}
               placeHolder={strings.lastName}
-              onChangeTexts={(value: string) => setLastName(value)}
+              onChangeTexts={(value: string) => setLastNameValue(value)}
             />
             <Textinput
               value={email}
@@ -104,13 +99,13 @@ const Auth = () => {
               value={confirmPassword}
               iconPath={imagePath.password}
               placeHolder={strings.confirmPassword}
-              onChangeTexts={(value: string) => setConfirmPassword(value)}
+              onChangeTexts={(value: string) => setConfirmPasswordValue(value)}
             />
             <Textinput
               value={mobileNumber}
               iconPath={imagePath.mobile}
               placeHolder={strings.mobileNumber}
-              onChangeTexts={(value: string) => setMobileNumber(value)}
+              onChangeTexts={(value: string) => setMobileNumberValue(value)}
             />
             <View style={styles.switchAuthView}>
               <Text style={styles.dontTxt}>{strings.allReadyHave}</Text>
@@ -118,7 +113,7 @@ const Auth = () => {
                 <Text style={styles.regestrationTxt}>{strings.signIn}</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </>
         )}
         <TouchableOpacity
           disabled={
@@ -137,7 +132,9 @@ const Auth = () => {
           }
           style={styles.loginTopac}
           onPress={() => (!signIn ? signUpWithEmail() : signInWithEmail())}>
-          <Text style={styles.topacTxt}>{strings.logIn}</Text>
+          <Text style={styles.topacTxt}>
+            {signIn ? strings.logIn : strings.signUp}
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>

@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import store from '../../redux/Store';
 import {wp} from '../../../assets/helper/helper';
 import Home from '../../uiScreens/screens/Home/Home';
-import Profile from '../../uiScreens/screens/Profile';
+import Profile from '../../uiScreens/screens/Profile/Profile';
 import Adduser from '../../uiScreens/screens/Adduser/Adduser';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawerContent from '../../component/CustomDrawerContent';
