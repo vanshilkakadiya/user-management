@@ -6,10 +6,10 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
-import {validateEmail} from '../../assets/helper/helper';
-import {strings} from '../../assets/constant/strings';
-import Textinput from '../component/Textinput';
-import {imagePath} from '../../assets/icon/imagePath';
+import {validateEmail} from '../../../assets/helper/helper';
+import {strings} from '../../../assets/constant/strings';
+import Textinput from '../../component/Textinput';
+import {imagePath} from '../../../assets/icon/imagePath';
 import useAuth from './useAuth';
 import styles from './AuthStyles';
 
@@ -47,7 +47,7 @@ const Auth = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView behavior={strings.padding as "padding"} style={styles.container}>
         {signIn ? (
           <Text style={styles.signTxt}>{strings.signIn}</Text>
         ) : (
