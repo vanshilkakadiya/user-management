@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
-import { fontSize, hp, wp } from "../../../../assets/helper/helper";
-import { colors } from "../../../../assets/constant/colors";
+import {StyleSheet} from 'react-native';
+import {fontSize, hp, wp} from '../../../../assets/helper/helper';
+import {colors} from '../../../../assets/constant/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -23,6 +23,19 @@ export const styles = StyleSheet.create({
     width: hp(100),
     borderRadius: hp(100),
     borderWidth: hp(1),
+  },
+  modalMain: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    margin: hp(0),
+  },
+  modalMainView: {
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    borderTopStartRadius: hp(25),
+    borderTopEndRadius: hp(25),
   },
   modalImg: {
     height: hp(50),

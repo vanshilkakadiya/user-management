@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../../../assets/constant/colors";
-import { hp, wp } from "../../../../assets/helper/helper";
+import { fontSize, hp, wp } from "../../../../assets/helper/helper";
 
 export const styles = StyleSheet.create({
     container: {
@@ -11,14 +11,14 @@ export const styles = StyleSheet.create({
       marginVertical: hp(10),
       borderRadius: hp(25),
       flexDirection: 'row',
-      paddingVertical: hp(50),
+      paddingVertical: hp(25),
       marginHorizontal: wp(10),
     },
     imageSty: {
       height: hp(125),
       width: hp(125),
       borderRadius: hp(125),
-      resizeMode: 'contain',
+      resizeMode: 'stretch',
       marginLeft: wp(15),
     },
     detailView: {
@@ -28,11 +28,16 @@ export const styles = StyleSheet.create({
     detailHeadingTxt: {
       width: wp(60),
       fontWeight: '600',
+      fontSize:fontSize(20)
     },
     detailTxt: {
-      width: wp(150),
+      width: wp(110),
+      fontSize:fontSize(20),
     },
     flexDirectionRow: {
       flexDirection: 'row',
     },
+    colon:{
+      marginHorizontal:wp(10),
+    }
   });
