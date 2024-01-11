@@ -18,4 +18,9 @@ export const strings={
     lName:"LName",
     padding:"padding",
     large:"large",
+    add:"ADD",
+    cancel:"CANCEL",
+    camera:"camera",
+    gallery:"gallery",
+    
 }
