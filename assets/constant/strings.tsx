@@ -10,4 +10,12 @@ export const strings={
     donthaveanaccount:"Don't have an account?",
     allReadyHave:"Aleady have an account?",
     logIn:"LOGIN",
+    home:"Home",
+    adduser:"Adduser",
+    profile:"Profile",
+    id:"Id",
+    fName:"FName",
+    lName:"LName",
+    padding:"padding",
+    large:"large",
 }

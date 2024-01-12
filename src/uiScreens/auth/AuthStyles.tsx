@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../assets/constant/colors";
-import { fontSize, hp, wp } from "../../assets/helper/helper";
+import { colors } from "../../../assets/constant/colors";
+import { fontSize, hp, wp } from "../../../assets/helper/helper";
 
 const styles = StyleSheet.create({
     container: {

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Auth from '../auth/Auth';
-import Dashboard from '../dashboard/Dashboard';
+import Auth from '../../uiScreens/auth/Auth';
+import Dashboard from '../drawerBottomNav/Dashboard';
 import { firebase } from '@react-native-firebase/auth';
+import { route } from '../../../assets/constant/route';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,9 +13,9 @@ const StackNav=()=> {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName={user?"Dashboard":"Auth"}>
-        <Stack.Screen name="Auth" component={Auth} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName={user?route.dashboard:route.auth}>
+        <Stack.Screen name={route.auth} component={Auth} />
+        <Stack.Screen name={route.dashboard} component={Dashboard} />
       </Stack.Navigator>
     </NavigationContainer>
   );
