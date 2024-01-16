@@ -75,6 +75,7 @@ android {
 
     namespace "com.awesomeproject"
     defaultConfig {
+         vectorDrawables.useSupportLibrary = true
         applicationId "com.awesomeproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
