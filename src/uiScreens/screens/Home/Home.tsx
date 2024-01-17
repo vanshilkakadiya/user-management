@@ -1,37 +1,56 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Alert, FlatList, SafeAreaView} from 'react-native';
 import axios from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from '../../../redux/userSlice';
 import {styles} from './HomeStyle';
+import {setUser} from '../../../redux/userSlice';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Showdetail from '../../../component/Showdetail';
-import { strings } from '../../../../assets/constant/strings';
+import {firebase} from '@react-native-firebase/firestore';
+import {strings} from '../../../../assets/constant/strings';
 
 const Home = () => {
+  const user = firebase.auth().currentUser;
+  const dispatch = useDispatch();
+  const users = useSelector((state: any) => state?.users?.user);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
-  
   const [showActivityIndicator, setShowActivityIndicator] = useState(false);
   const baseUrl = `https://reqres.in/api`;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     getDataFormApi();
   }, []);
 
-  const getDataFormApi = () => {
-    axios.get(`${baseUrl}/users?page=${page}`).then((response: any) => {
-      setPageSize(response?.data?.total_pages)
+  const getDataFormApi = async () => {
+    page < 2 && (await getDataFirestore());
+    await axios.get(`${baseUrl}/users?page=${page}`).then((response: any) => {
+      setPageSize(response?.data?.total_pages);
       dispatch(setUser(response?.data));
-    });
+      setPage(page + 1);
+    }).catch(()=>{
+      Alert.alert("Oops","data not fetch from the server!!!")
+    })
     page <= pageSize && setPage(page + 1);
   };
 
-  const users = useSelector((state: any) => state?.users?.user);
+  const getDataFirestore = async () => {
+    await firebase
+      .firestore()
+      .collection('data')
+      .doc('alluser')
+      .collection(`${user?.uid}`)
+      .get()
+      .then(querySnapshot => {
+        const temp: any = [];
+        querySnapshot.forEach(documentSnapshot => {
+          temp.push(documentSnapshot.data());
+        });
+        dispatch(setUser({data: temp}));
+      })
+      .catch(() => {
+        Alert.alert('Retry', 'data not get from server');
+      });
+  };
 
   const onReachEndFlatlist = () => {
     setShowActivityIndicator(true);
@@ -41,15 +60,17 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {users && 
+      {users && (
         <FlatList
           data={users ?? []}
           showsVerticalScrollIndicator={false}
           onEndReached={() => onReachEndFlatlist()}
           renderItem={({item}) => <Showdetail item={item} />}
         />
-      }
-      {showActivityIndicator && <ActivityIndicator size={strings.large as "large"} />}
+      )}
+      {showActivityIndicator && (
+        <ActivityIndicator size={strings.large as 'large'} />
+      )}
     </SafeAreaView>
   );
 };

@@ -3,9 +3,10 @@ import {styles} from './AdduserStyle';
 import useAdduser from './useAdduser';
 import Topac from '../../../component/Topac';
 import Textinput from '../../../component/Textinput';
+import {colors} from '../../../../assets/constant/colors';
 import {strings} from '../../../../assets/constant/strings';
 import {imagePath} from '../../../../assets/icon/imagePath';
-import {wp} from '../../../../assets/helper/helper';
+import {validateEmail, wp} from '../../../../assets/helper/helper';
 import {
   Image,
   Modal,
@@ -14,7 +15,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../../../assets/constant/colors';
 
 const Adduser = () => {
   const {
@@ -30,6 +30,7 @@ const Adduser = () => {
     setEmailValue,
     setFNameValue,
     setLNameValue,
+    adduser,
   } = useAdduser();
 
   return (
@@ -59,41 +60,55 @@ const Adduser = () => {
         placeHolder={strings.email}
         iconPath={imagePath.email}
       />
-
       <View style={styles.topacView}>
-        <Topac topacName={strings.add} backColor={colors.blue} />
+        <Topac
+          topacName={strings.add}
+          backColor={colors.blue}
+          onPressEvent={() => adduser()}
+          disable={
+            imagePaths == '' ||
+            fname == '' ||
+            validateEmail(email) == false ||
+            lname == ''
+              ? true
+              : false
+          }
+        />
         <Topac
           topacName={strings.cancel}
           backColor={colors.red}
           onPressEvent={() => cancelUser()}
+          disable={false}
         />
       </View>
 
-      <Modal visible={isModalVisible} transparent={true}>
-        <View style={[styles.container]}>
-          <View style={styles.modalView}>
-            <TouchableOpacity
-              style={styles.closeImageTopac}
-              onPress={() => setIsModalVisibleValue(false)}>
-              <Image style={styles.closeImage} source={imagePath.closes} />
-            </TouchableOpacity>
-            <View style={styles.selectOptionView}>
-              <View>
-                <TouchableOpacity onPress={() => cameraImage()}>
-                  <Image source={imagePath.camera} style={styles.modalImg} />
-                </TouchableOpacity>
-                <Text style={styles.modalTxt}>{strings.camera}</Text>
-              </View>
-              <View>
-                <TouchableOpacity onPress={() => selectFromGallery()}>
-                  <Image source={imagePath.gallery} style={styles.modalImg} />
-                </TouchableOpacity>
-                <Text style={styles.modalTxt}>{strings.gallery}</Text>
+      {isModalVisible && (
+        <Modal transparent={true}>
+          <View style={[styles.container]}>
+            <View style={styles.modalView}>
+              <TouchableOpacity
+                style={styles.closeImageTopac}
+                onPress={() => setIsModalVisibleValue(false)}>
+                <Image style={styles.closeImage} source={imagePath.closes} />
+              </TouchableOpacity>
+              <View style={styles.selectOptionView}>
+                <View>
+                  <TouchableOpacity onPress={() => cameraImage()}>
+                    <Image source={imagePath.camera} style={styles.modalImg} />
+                  </TouchableOpacity>
+                  <Text style={styles.modalTxt}>{strings.camera}</Text>
+                </View>
+                <View>
+                  <TouchableOpacity onPress={() => selectFromGallery()}>
+                    <Image source={imagePath.gallery} style={styles.modalImg} />
+                  </TouchableOpacity>
+                  <Text style={styles.modalTxt}>{strings.gallery}</Text>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      )}
     </SafeAreaView>
   );
 };
