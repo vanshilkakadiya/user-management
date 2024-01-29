@@ -28,5 +28,7 @@ export const strings={
     Contactno:"Contact no",
     height:"height",
     padding:"padding",
-    logout:"Logout"
+    logout:"Logout",
+    searchdata:"searchdata",
+    nodatafound:"no data found"
 }

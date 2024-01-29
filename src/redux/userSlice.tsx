@@ -17,9 +17,19 @@ const userSlices = createSlice({
     clearUser: state => {
       state.user = [];
     },
+    editData: (state, action) => {
+      state.user = state?.user.map((item: any) => {
+        if (item?.id === action?.payload?.id) {
+          return {...item, ...action?.payload};
+        } else {
+          return item;
+        }
+      });
+    },
   },
 });
 
-export const {setUser, setFirestoreUser, clearUser} = userSlices.actions;
+export const {setUser, setFirestoreUser, clearUser, editData} =
+  userSlices.actions;
 
 export default userSlices.reducer;

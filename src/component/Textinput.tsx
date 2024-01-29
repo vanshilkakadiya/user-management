@@ -7,20 +7,20 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {fontSize, hp, wp} from '../../assets/helper/helper';
+import {hp, wp} from '../../assets/helper/helper';
 import {colors} from '../../assets/constant/colors';
 
 interface LabeledValue {
-  value: string;
   iconPath: ImageSourcePropType;
   onChangeTexts: any;
   placeHolder: string;
+  defaulValue?: any;
 }
 const Textinput = ({
-  value,
   onChangeTexts,
   iconPath,
   placeHolder,
+  defaulValue,
 }: LabeledValue) => {
   return (
     <View style={styles.textInputView}>
@@ -29,8 +29,8 @@ const Textinput = ({
         autoCapitalize="none"
         placeholder={placeHolder}
         style={styles.textInput}
-        value={value}
         onChangeText={onChangeTexts}
+        defaultValue={defaulValue}
       />
       <TouchableOpacity style={styles.rightIconTopac}></TouchableOpacity>
     </View>
@@ -38,13 +38,8 @@ const Textinput = ({
 };
 
 const styles = StyleSheet.create({
-  mainView: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: colors.white,
-  },
   textInputView: {
-    borderWidth: 1,
+    borderWidth: hp(1),
     borderColor: colors.black,
     marginHorizontal: wp(50),
     flexDirection: 'row',
@@ -54,12 +49,6 @@ const styles = StyleSheet.create({
   textInput: {
     height: hp(50),
     width: wp(225),
-  },
-  signTxt: {
-    fontSize: fontSize(35),
-    color: colors.black,
-    alignSelf: 'center',
-    marginBottom: hp(50),
   },
   txtInputIcon: {
     height: hp(25),

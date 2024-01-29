@@ -4,7 +4,7 @@ import {colors} from '../../../../assets/constant/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: hp(1),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     borderWidth: hp(1),
   },
   modalMain: {
-    flex: 1,
+    flex: hp(1),
     justifyContent: 'flex-end',
     margin: hp(0),
   },

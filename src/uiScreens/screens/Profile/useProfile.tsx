@@ -13,14 +13,13 @@ const useProfile = () => {
   const user = firebase.auth().currentUser;
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
-
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [detailEdit, setDetailEdit] = useState<boolean>(false);
   const [fName, setFName] = useState<string>('');
   const [lName, setLName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [avatar, setAvatar] = useState<string>('');
-  const [mobileNumber, setMobileNumber] = useState<any>(0);
+  const [mobileNumber, setMobileNumber] = useState<string>('');
   const [profileImage, setProfileImage] = useState<string>('');
 
   const logout = () => {
@@ -50,26 +49,29 @@ const useProfile = () => {
           setAvatarValue(documentSnapshot?.data()?.avatar);
         });
     } catch (err) {
-      Alert.alert('Retry','Profile data not found,Please try again by reopen app');
+      Alert.alert(
+        'Retry',
+        'Profile data not found,Please try again by reopen app',
+      );
     }
   };
 
   const updateProfileDetail = async () => {
-    try{
+    try {
       const imageUrl = profileImage && (await updateUploadImage(profileImage));
       firestore()
-      .collection('data')
-      .doc('alluser')
-      .collection(`${user?.uid}`)
-      .doc('personalDetail')
-      .update({
-        first_name: fName,
-        last_name: lName,
-        mobileNumber: mobileNumber,
-        avatar: imageUrl ? imageUrl : avatar,
-      });
-    }catch{
-      Alert.alert('Retry','Profile data not update,Please try again');
+        .collection('data')
+        .doc('alluser')
+        .collection(`${user?.uid}`)
+        .doc('personalDetail')
+        .update({
+          first_name: fName,
+          last_name: lName,
+          mobileNumber: mobileNumber,
+          avatar: imageUrl ? imageUrl : avatar,
+        });
+    } catch {
+      Alert.alert('Retry', 'Profile data not update,Please try again');
     }
   };
 
@@ -79,7 +81,7 @@ const useProfile = () => {
   const setLNameValue = (value: string) => {
     setLName(value);
   };
-  const setMobileNumberValue = (value: number) => {
+  const setMobileNumberValue = (value: string) => {
     setMobileNumber(value);
   };
   const setEmailValue = (value: string) => {
@@ -98,8 +100,17 @@ const useProfile = () => {
     detailEdit && updateProfileDetail();
   };
 
+  const logOutAlert = () => {
+    Alert.alert('Log out', 'Are you sure want to Logout ?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: logout},
+    ]);
+  };
+
   return {
-    logout,
     getProfileData,
     modalVisible,
     setModalVisible,
@@ -119,6 +130,8 @@ const useProfile = () => {
     setAvatar,
     setProfileImage,
     profileImage,
+    logOutAlert,
+    logout,
   };
 };
 

@@ -39,24 +39,25 @@ const Adduser = () => {
       <TouchableOpacity
         style={[styles.imageTopac, {borderWidth: !imagePaths ? wp(1) : wp(0)}]}
         onPress={() => setIsModalVisible(true)}>
-        {imagePaths && (
-          <Image source={{uri: imagePaths}} style={styles.selectedImage} />
-        )}
+        <Image
+          source={imagePaths ? {uri: imagePaths} : imagePath.user}
+          style={styles.selectedImage}
+        />
       </TouchableOpacity>
       <Textinput
-        value={fname}
+        defaulValue={fname}
         onChangeTexts={(value: string) => setFNameValue(value)}
         placeHolder={strings.fName}
         iconPath={imagePath.user}
       />
       <Textinput
-        value={lname}
+        defaulValue={lname}
         onChangeTexts={(value: string) => setLNameValue(value)}
         placeHolder={strings.lName}
         iconPath={imagePath.user}
       />
       <Textinput
-        value={email}
+        defaulValue={email}
         onChangeTexts={(value: string) => setEmailValue(value)}
         placeHolder={strings.email}
         iconPath={imagePath.email}
@@ -65,7 +66,7 @@ const Adduser = () => {
         <Topac
           topacName={strings.add}
           backColor={colors.blue}
-          onPressEvent={() => adduser()}
+          onPressEvent={adduser}
           disable={
             !imagePaths || !fname || !validateEmail(email) || !lname
               ? true
@@ -75,7 +76,7 @@ const Adduser = () => {
         <Topac
           topacName={strings.cancel}
           backColor={colors.red}
-          onPressEvent={() => cancelUser()}
+          onPressEvent={cancelUser}
           disable={false}
         />
       </View>

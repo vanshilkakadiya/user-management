@@ -8,4 +8,6 @@ export const imagePath = {
   camera: require('../icon/camera.png'),
   gallery: require('../icon/gallery.png'),
   close: require('../icon/close.png'),
+  search: require('../icon/search.png'),
+  pencil: require('../icon/pencil.png'),
 };

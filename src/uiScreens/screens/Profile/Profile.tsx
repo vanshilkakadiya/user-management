@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import useProfile from './useProfile';
@@ -18,7 +19,7 @@ import {imagePath} from '../../../../assets/icon/imagePath';
 
 const Profile = () => {
   const {
-    logout,
+    logOutAlert,
     getProfileData,
     modalVisible,
     setModalVisible,
@@ -43,16 +44,30 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => logout()} style={styles.logoutTopac}>
-        <Text style={styles.logoutTxt}>{strings.logout}</Text>
-      </TouchableOpacity>
+      <View style={styles.editLogoutView}>
+        <TouchableOpacity onPress={logOutAlert} style={styles.logoutTopac}>
+          <Text style={styles.logoutTxt}>{strings.logout}</Text>
+        </TouchableOpacity>
+        <Topac
+          topacName={detailEdit ? strings.done : strings.edit}
+          backColor={detailEdit ? colors.green : colors.blue}
+          onPressEvent={editButtonPress}
+          disable={
+            detailEdit
+              ? fName.length < 1 ||
+                lName.length < 1 ||
+                (mobileNumber.length !== 10 && true)
+              : false
+          }
+        />
+      </View>
       <KeyboardAvoidingView
         behavior={strings.padding as 'padding'}
-        style={[styles.container, styles.justifyCenter]}>
+        style={[styles.container, styles.keyboardAvoidView]}>
         <TouchableOpacity
           style={styles.imageTopac}
           disabled={!detailEdit}
-          onPress={() => openModal()}>
+          onPress={openModal}>
           <Image
             source={
               profileImage || avatar
@@ -63,18 +78,6 @@ const Profile = () => {
           />
         </TouchableOpacity>
 
-        <Topac
-          topacName={detailEdit ? strings.done : strings.edit}
-          backColor={detailEdit ? colors.green : colors.blue}
-          onPressEvent={() => editButtonPress()}
-          disable={
-            detailEdit
-              ? fName.length < 1 ||
-                lName.length < 1 ||
-                (mobileNumber.length !== 10 && true)
-              : false
-          }
-        />
         {modalVisible && (
           <ImagePickerModal
             setIsModalVisibleValue={setModalVisible}
@@ -101,7 +104,7 @@ const Profile = () => {
           detailHeading={strings.Contactno}
           detailEle={mobileNumber}
           isEditable={detailEdit}
-          onChangeText={(value: number) => setMobileNumberValue(value)}
+          onChangeText={(value: string) => setMobileNumberValue(value)}
         />
       </KeyboardAvoidingView>
     </SafeAreaView>

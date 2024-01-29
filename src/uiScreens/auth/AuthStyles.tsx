@@ -4,11 +4,11 @@ import {fontSize, hp, wp} from '../../../assets/helper/helper';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: hp(1),
     justifyContent: 'center',
   },
   mainView: {
-    flex: 1,
+    flex: hp(1),
     justifyContent: 'center',
     backgroundColor: colors.white,
   },

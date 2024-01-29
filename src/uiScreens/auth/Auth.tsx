@@ -51,20 +51,20 @@ const Auth = () => {
         {signIn ? (
           <>
             <Textinput
-              value={email}
+              defaulValue={email}
               iconPath={imagePath.email}
               placeHolder={strings.email}
               onChangeTexts={(value: string) => emailChangeText(value)}
             />
             <Textinput
-              value={password}
+              defaulValue={password}
               iconPath={imagePath.password}
               placeHolder={strings.password}
               onChangeTexts={(value: string) => passwordChangeValue(value)}
             />
             <View style={styles.switchAuthView}>
               <Text style={styles.dontTxt}>{strings.donthaveanaccount}</Text>
-              <TouchableOpacity onPress={() => signUpTopac()}>
+              <TouchableOpacity onPress={signUpTopac}>
                 <Text style={styles.regestrationTxt}>{strings.signUp}</Text>
               </TouchableOpacity>
             </View>
@@ -72,44 +72,44 @@ const Auth = () => {
         ) : (
           <>
             <Textinput
-              value={firstName}
+              defaulValue={firstName}
               iconPath={imagePath.user}
               placeHolder={strings.firstName}
               onChangeTexts={(value: string) => setFirstNameValue(value)}
             />
             <Textinput
-              value={lastName}
+              defaulValue={lastName}
               iconPath={imagePath.user}
               placeHolder={strings.lastName}
               onChangeTexts={(value: string) => setLastNameValue(value)}
             />
             <Textinput
-              value={email}
+              defaulValue={email}
               iconPath={imagePath.email}
               placeHolder={strings.email}
               onChangeTexts={(value: string) => emailChangeValue(value)}
             />
             <Textinput
-              value={password}
+              defaulValue={password}
               iconPath={imagePath.password}
               placeHolder={strings.password}
               onChangeTexts={(value: string) => passwordChangeValue(value)}
             />
             <Textinput
-              value={confirmPassword}
+              defaulValue={confirmPassword}
               iconPath={imagePath.password}
               placeHolder={strings.confirmPassword}
               onChangeTexts={(value: string) => setConfirmPasswordValue(value)}
             />
             <Textinput
-              value={mobileNumber}
+              defaulValue={mobileNumber}
               iconPath={imagePath.mobile}
               placeHolder={strings.mobileNumber}
               onChangeTexts={(value: string) => setMobileNumberValue(value)}
             />
             <View style={styles.switchAuthView}>
               <Text style={styles.dontTxt}>{strings.allReadyHave}</Text>
-              <TouchableOpacity onPress={() => signInTopac()}>
+              <TouchableOpacity onPress={signInTopac}>
                 <Text style={styles.regestrationTxt}>{strings.signIn}</Text>
               </TouchableOpacity>
             </View>
@@ -131,7 +131,7 @@ const Auth = () => {
               : false
           }
           style={styles.loginTopac}
-          onPress={() => (!signIn ? signUpWithEmail() : signInWithEmail())}>
+          onPress={!signIn ? signUpWithEmail : signInWithEmail}>
           <Text style={styles.topacTxt}>
             {signIn ? strings.logIn : strings.signUp}
           </Text>

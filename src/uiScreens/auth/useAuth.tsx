@@ -34,6 +34,12 @@ const useAuth = () => {
   const setMobileNumberValue = (value: string) => {
     setMobileNumber(value);
   };
+  const emailChangeValue = (value: string) => {
+    setEmail(value);
+  };
+  const passwordChangeValue = (value: string) => {
+    setPassword(value);
+  };
 
   const signUpTopac = () => {
     setSignIn(false);
@@ -70,7 +76,6 @@ const useAuth = () => {
             avatar: '',
           })
           .then(() => {
-            clearSignupDetail();
             navigation.reset({
               index: 0,
               routes: [
@@ -95,25 +100,10 @@ const useAuth = () => {
       });
   };
 
-  const clearSignupDetail = () => {
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setMobileNumber('');
-  };
-
-  const clearSignInDetail = () => {
-    setEmail('');
-    setPassword('');
-  };
-
   const signInWithEmail = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        clearSignInDetail();
         navigation.reset({
           index: 0,
           routes: [
@@ -132,13 +122,6 @@ const useAuth = () => {
           Alert.alert('Retry', 'Error, please try again');
         }
       });
-  };
-
-  const emailChangeValue = (value: string) => {
-    setEmail(value);
-  };
-  const passwordChangeValue = (value: string) => {
-    setPassword(value);
   };
 
   return {
@@ -161,7 +144,6 @@ const useAuth = () => {
     setLastNameValue,
     setConfirmPasswordValue,
     setMobileNumberValue,
-    clearSignupDetail,
   };
 };
 
