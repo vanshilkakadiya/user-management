@@ -1,9 +1,11 @@
 import {
   Image,
   KeyboardAvoidingView,
+  Modal,
   SafeAreaView,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import useProfile from './useProfile';
@@ -18,7 +20,6 @@ import {imagePath} from '../../../../assets/icon/imagePath';
 
 const Profile = () => {
   const {
-    logout,
     getProfileData,
     modalVisible,
     setModalVisible,
@@ -33,8 +34,12 @@ const Profile = () => {
     avatar,
     openModal,
     editButtonPress,
+<<<<<<< Updated upstream
     profileImage,
     setProfileImage,
+=======
+    logOutAlert
+>>>>>>> Stashed changes
   } = useProfile();
 
   useEffect(() => {
@@ -43,16 +48,35 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => logout()} style={styles.logoutTopac}>
+      <View style={styles.editLogoutView}>
+      <TouchableOpacity onPress={() => logOutAlert()} style={styles.logoutTopac}>
         <Text style={styles.logoutTxt}>{strings.logout}</Text>
       </TouchableOpacity>
+      <Topac
+        topacName={detailEdit ? strings.done : strings.edit}
+        backColor={detailEdit ? colors.green : colors.blue}
+        onPressEvent={() => editButtonPress()}
+        disable={
+          detailEdit
+            ? fName.length < 1 ||
+              lName.length < 1 ||
+              (mobileNumber.length !== 10 && true)
+            : false
+        }
+      />
+      </View>
       <KeyboardAvoidingView
         behavior={strings.padding as 'padding'}
+<<<<<<< Updated upstream
         style={[styles.container, styles.justifyCenter]}>
         <TouchableOpacity
           style={styles.imageTopac}
           disabled={!detailEdit}
           onPress={() => openModal()}>
+=======
+        style={[styles.container, styles.keyboardAvoidView]}>
+        <TouchableOpacity style={styles.imageTopac} onPress={() => openModal()} disabled={!detailEdit}>
+>>>>>>> Stashed changes
           <Image
             source={
               profileImage || avatar
@@ -63,18 +87,6 @@ const Profile = () => {
           />
         </TouchableOpacity>
 
-        <Topac
-          topacName={detailEdit ? strings.done : strings.edit}
-          backColor={detailEdit ? colors.green : colors.blue}
-          onPressEvent={() => editButtonPress()}
-          disable={
-            detailEdit
-              ? fName.length < 1 ||
-                lName.length < 1 ||
-                (mobileNumber.length !== 10 && true)
-              : false
-          }
-        />
         {modalVisible && (
           <ImagePickerModal
             setIsModalVisibleValue={setModalVisible}

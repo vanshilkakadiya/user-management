@@ -5,7 +5,11 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {firebase} from '@react-native-firebase/firestore';
 import {validateEmail} from '../../../assets/helper/helper';
 import {route} from '../../../assets/constant/route';
+<<<<<<< Updated upstream
 import {StackNavigationProp} from '@react-navigation/stack';
+=======
+import { StackNavigationOptions, StackNavigationProp } from '@react-navigation/stack';
+>>>>>>> Stashed changes
 
 const useAuth = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -72,6 +76,7 @@ const useAuth = () => {
           .then(() => {
             clearSignupDetail();
             navigation.reset({
+<<<<<<< Updated upstream
               index: 0,
               routes: [
                 {
@@ -82,6 +87,13 @@ const useAuth = () => {
           })
           .catch(() => {
             Alert.alert('Retry', 'something went wrong,Please try again');
+=======
+              index:0,
+              routes:[{
+                name: route.dashboard,
+              }]
+            })
+>>>>>>> Stashed changes
           });
       })
       .catch(error => {
@@ -115,6 +127,7 @@ const useAuth = () => {
       .then(() => {
         clearSignInDetail();
         navigation.reset({
+<<<<<<< Updated upstream
           index: 0,
           routes: [
             {
@@ -122,6 +135,13 @@ const useAuth = () => {
             },
           ],
         });
+=======
+          index:0,
+          routes:[{
+            name: route.dashboard,
+          }]
+        })
+>>>>>>> Stashed changes
       })
       .catch(error => {
         if (error.code === 'auth/invalid-email')

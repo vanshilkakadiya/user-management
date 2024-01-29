@@ -11,16 +11,18 @@ import {fontSize, hp, wp} from '../../assets/helper/helper';
 import {colors} from '../../assets/constant/colors';
 
 interface LabeledValue {
-  value: string;
+  value?: string;
   iconPath: ImageSourcePropType;
   onChangeTexts: any;
   placeHolder: string;
+  defaulValue?:any
 }
 const Textinput = ({
   value,
   onChangeTexts,
   iconPath,
   placeHolder,
+  defaulValue
 }: LabeledValue) => {
   return (
     <View style={styles.textInputView}>
@@ -29,8 +31,9 @@ const Textinput = ({
         autoCapitalize="none"
         placeholder={placeHolder}
         style={styles.textInput}
-        value={value}
+        // value={value}
         onChangeText={onChangeTexts}
+        defaultValue={defaulValue}
       />
       <TouchableOpacity style={styles.rightIconTopac}></TouchableOpacity>
     </View>

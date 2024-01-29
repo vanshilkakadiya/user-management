@@ -40,7 +40,11 @@ const cameraImage = (
     });
 };
 
+<<<<<<< Updated upstream
 const updateUploadImage = async (imagePath: any) => {
+=======
+const UpdateUploadImage = async (imagePath: any) => {
+>>>>>>> Stashed changes
   const temp = imagePath.split('/');
   const imageName = temp[temp.length - 1];
   const imageRef = storage().ref(`userImage/${imageName}`);
@@ -53,4 +57,8 @@ const updateUploadImage = async (imagePath: any) => {
   return url;
 };
 
+<<<<<<< Updated upstream
 export {selectFromGallery, cameraImage, updateUploadImage};
+=======
+export {selectFromGallery, cameraImage, UpdateUploadImage};
+>>>>>>> Stashed changes

@@ -4,14 +4,18 @@ import {fontSize, hp, wp} from '../../../../assets/helper/helper';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
-  justifyCenter:{
-    justifyContent:'center'
+  editLogoutView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   logoutTopac: {
-    alignSelf: 'flex-end',
-    marginRight: wp(25),
+    // alignSelf: 'flex-start',
+    // marginLeft:wp(25),
+    // marginRight: wp(25),
+    alignSelf: 'center',
+    marginLeft: wp(25),
   },
   logoutTxt: {
     fontSize: fontSize(30),
@@ -31,5 +35,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: hp(25),
+  },
+  keyboardAvoidView: {
+    marginLeft: wp(25),
   },
 });

@@ -3,17 +3,28 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import firestore, {firebase} from '@react-native-firebase/firestore';
 import {useState} from 'react';
 import {route} from '../../../../assets/constant/route';
+<<<<<<< Updated upstream
 import {Alert} from 'react-native';
 import {updateUploadImage} from '../../../hooks/usePickerOptions';
 import {useDispatch} from 'react-redux';
 import {clearUser} from '../../../redux/userSlice';
 import {StackNavigationProp} from '@react-navigation/stack';
+=======
+import {useDispatch} from 'react-redux';
+import {clearUser} from '../../../redux/userSlice';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {Alert} from 'react-native';
+>>>>>>> Stashed changes
 
 const useProfile = () => {
   const user = firebase.auth().currentUser;
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+<<<<<<< Updated upstream
   const dispatch = useDispatch();
+=======
+>>>>>>> Stashed changes
 
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [detailEdit, setDetailEdit] = useState<boolean>(false);
   const [fName, setFName] = useState<string>('');
@@ -29,9 +40,27 @@ const useProfile = () => {
       .then(() => {
         navigation.reset({index: 0, routes: [{name: route.auth}]});
         dispatch(clearUser());
+<<<<<<< Updated upstream
       })
       .catch(() => {
         Alert.alert('Retry', 'You have not logouted, Please try again');
+=======
+      });
+  };
+
+  const getProfileData = () => {
+    firestore()
+      .collection('data')
+      .doc('alluser')
+      .collection(`${user?.uid}`)
+      .doc('personalDetail')
+      .onSnapshot(documentSnapshot => {
+        setFNameValue(documentSnapshot?.data()?.first_name);
+        setLNameValue(documentSnapshot?.data()?.last_name);
+        setEmailValue(documentSnapshot?.data()?.email);
+        setMobileNumberValue(documentSnapshot?.data()?.mobileNumber);
+        setAvatarValue(documentSnapshot?.data()?.avatar);
+>>>>>>> Stashed changes
       });
   };
 
@@ -98,8 +127,18 @@ const useProfile = () => {
     detailEdit && updateProfileDetail();
   };
 
+  const logOutAlert = () => {
+    Alert.alert('Log out', 'Are you sure want to Logout ?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => logout()},
+    ]);
+  };
+
   return {
-    logout,
+    // logout,
     getProfileData,
     modalVisible,
     setModalVisible,
@@ -116,9 +155,13 @@ const useProfile = () => {
     setAvatarValue,
     openModal,
     editButtonPress,
+<<<<<<< Updated upstream
     setAvatar,
     setProfileImage,
     profileImage,
+=======
+    logOutAlert,
+>>>>>>> Stashed changes
   };
 };
 
