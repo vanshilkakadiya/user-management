@@ -4,4 +4,5 @@ export const colors={
     aliceblue:"#f0f8ff",
     blue:"#2C6EF2",
     red:"#ff0000",
+    green:"#339F49"
 }

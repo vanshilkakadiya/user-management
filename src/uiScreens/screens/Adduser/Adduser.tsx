@@ -9,12 +9,12 @@ import {imagePath} from '../../../../assets/icon/imagePath';
 import {validateEmail, wp} from '../../../../assets/helper/helper';
 import {
   Image,
-  Modal,
-  SafeAreaView,
-  Text,
+  KeyboardAvoidingView,
   TouchableOpacity,
   View,
 } from 'react-native';
+import ImagePickerModal from '../../../component/ImagePickerModal';
+import {cameraImage, selectFromGallery} from '../../../hooks/usePickerOptions';
 
 const Adduser = () => {
   const {
@@ -24,20 +24,21 @@ const Adduser = () => {
     fname,
     lname,
     isModalVisible,
-    cameraImage,
-    selectFromGallery,
-    setIsModalVisibleValue,
+    setImagePath,
     setEmailValue,
     setFNameValue,
     setLNameValue,
     adduser,
+    setIsModalVisible,
   } = useAdduser();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={strings.height as 'height'}
+      style={styles.container}>
       <TouchableOpacity
         style={[styles.imageTopac, {borderWidth: !imagePaths ? wp(1) : wp(0)}]}
-        onPress={() => setIsModalVisibleValue(true)}>
+        onPress={() => setIsModalVisible(true)}>
         {imagePaths && (
           <Image source={{uri: imagePaths}} style={styles.selectedImage} />
         )}
@@ -66,10 +67,7 @@ const Adduser = () => {
           backColor={colors.blue}
           onPressEvent={() => adduser()}
           disable={
-            imagePaths == '' ||
-            fname == '' ||
-            validateEmail(email) == false ||
-            lname == ''
+            !imagePaths || !fname || !validateEmail(email) || !lname
               ? true
               : false
           }
@@ -83,33 +81,15 @@ const Adduser = () => {
       </View>
 
       {isModalVisible && (
-        <Modal transparent={true}>
-          <View style={[styles.container]}>
-            <View style={styles.modalView}>
-              <TouchableOpacity
-                style={styles.closeImageTopac}
-                onPress={() => setIsModalVisibleValue(false)}>
-                <Image style={styles.closeImage} source={imagePath.closes} />
-              </TouchableOpacity>
-              <View style={styles.selectOptionView}>
-                <View>
-                  <TouchableOpacity onPress={() => cameraImage()}>
-                    <Image source={imagePath.camera} style={styles.modalImg} />
-                  </TouchableOpacity>
-                  <Text style={styles.modalTxt}>{strings.camera}</Text>
-                </View>
-                <View>
-                  <TouchableOpacity onPress={() => selectFromGallery()}>
-                    <Image source={imagePath.gallery} style={styles.modalImg} />
-                  </TouchableOpacity>
-                  <Text style={styles.modalTxt}>{strings.gallery}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </Modal>
+        <ImagePickerModal
+          setIsModalVisibleValue={setIsModalVisible}
+          onCameraPress={() => cameraImage(setImagePath, setIsModalVisible)}
+          onGalleryPress={() =>
+            selectFromGallery(setImagePath, setIsModalVisible)
+          }
+        />
       )}
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

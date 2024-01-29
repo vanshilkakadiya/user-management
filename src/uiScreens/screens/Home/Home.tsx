@@ -10,8 +10,8 @@ import {strings} from '../../../../assets/constant/strings';
 
 const Home = () => {
   const user = firebase.auth().currentUser;
-  const dispatch = useDispatch();
   const users = useSelector((state: any) => state?.users?.user);
+  const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
   const [showActivityIndicator, setShowActivityIndicator] = useState(false);
@@ -39,6 +39,7 @@ const Home = () => {
       .collection('data')
       .doc('alluser')
       .collection(`${user?.uid}`)
+      .doc('detail').collection('addedDetail')
       .get()
       .then(querySnapshot => {
         const temp: any = [];
@@ -57,7 +58,6 @@ const Home = () => {
     page <= pageSize && getDataFormApi();
     setShowActivityIndicator(false);
   };
-
   return (
     <SafeAreaView style={styles.container}>
       {users && (

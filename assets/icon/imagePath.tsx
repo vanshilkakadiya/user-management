@@ -7,5 +7,5 @@ export const imagePath = {
   view: require('../icon/view.png'),
   camera: require('../icon/camera.png'),
   gallery: require('../icon/gallery.png'),
-  closes: require('../icon/closes.png'),
+  close: require('../icon/close.png'),
 };

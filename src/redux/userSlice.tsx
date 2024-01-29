@@ -8,15 +8,18 @@ const userSlices = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    setUser: (state = initialState, action) => {
+    setUser: (state, action) => {
       state.user = [...state.user, ...action?.payload.data];
     },
-    setFirestoreUser: (state = initialState, action) => {
-      state.user = [ ...action?.payload.data,...state.user];
+    setFirestoreUser: (state, action) => {
+      state.user = [action?.payload.data, ...state.user];
+    },
+    clearUser: state => {
+      state.user = [];
     },
   },
 });
 
-export const {setUser,setFirestoreUser} = userSlices.actions;
+export const {setUser, setFirestoreUser, clearUser} = userSlices.actions;
 
 export default userSlices.reducer;
