@@ -1,18 +1,18 @@
 import {useState} from 'react';
 import {Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {setFirestoreUser} from '../../../redux/userSlice';
+import { setFirestoreUser} from '../../../redux/userSlice';
 import {useNavigation} from '@react-navigation/native';
 import {firebase} from '@react-native-firebase/firestore';
-import { route } from '../../../../assets/constant/route';
-import { updateUploadImage } from '../../../hooks/usePickerOptions';
+import {route} from '../../../../assets/constant/route';
+import {updateUploadImage} from '../../../hooks/usePickerOptions';
 
 const useAdduser = () => {
   const user = firebase.auth().currentUser;
   const dispatch = useDispatch();
   const {navigate}: any = useNavigation();
 
-  const [imagePickerVisible,setImagePickerVisible] = useState<boolean>(false);
+  const [imagePickerVisible, setImagePickerVisible] = useState<boolean>(false);
   const [imagePaths, setImagePath] = useState('');
   const [email, setEmail] = useState('');
   const [fname, setFName] = useState('');
@@ -28,7 +28,7 @@ const useAdduser = () => {
 
   const adduser = async () => {
     const imageUrl = await updateUploadImage(imagePaths);
-    const temp = {
+    let temp: any = {
       first_name: fname.trim(),
       last_name: lname.trim(),
       email: email.trim(),
@@ -43,7 +43,8 @@ const useAdduser = () => {
       .doc('detail')
       .collection('addedDetail')
       .add(temp)
-      .then(() => {
+      .then((res: any) => {
+        temp = {...temp, docId: res?._documentPath?._parts[5]};
         dispatch(setFirestoreUser({data: temp}));
         cancelUser();
         navigate(route.home);
